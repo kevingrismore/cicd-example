@@ -3,7 +3,7 @@ name: Deploy Prefect flow
 on:
   push:
     branches:
-      - main
+      - with-yaml
 
 jobs:
   deploy:
@@ -23,7 +23,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
       - name: Prefect Deploy
         env:
@@ -31,4 +31,4 @@ jobs:
           PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
         run: |
           pip install -r requirements.txt
-          python flow.py
+          prefect deploy -n my-deployment
